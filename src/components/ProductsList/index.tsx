@@ -2,13 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { css } from "styled-components";
 import { Primary } from "components/Button";
+import Loader from "components/Loader";
 import {
   ProductsListContainer,
   ProductWrapper,
   ProductInfoBox,
   ProductDescriptionBox,
   ProductMaintainer,
-  Loading,
 } from "./styles";
 
 interface Props {
@@ -33,7 +33,7 @@ const ProductsList: React.FC<Props> = ({
   return (
     <ProductsListContainer>
       <h1>Stock</h1>
-      {isProductsLoading && <Loading>Loading...</Loading>}
+      {isProductsLoading && <Loader />}
       {isProductsMounted &&
         products.length > 0 &&
         products.map((p: any) => (

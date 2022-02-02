@@ -61,9 +61,3 @@ export const ProductDescriptionBox = styled.div`
     left: 0;
   }
 `;
-
-export const Loading = styled.div`
-  padding: 16px;
-  border: 1px solid white;
-  text-align: center;
-`;
