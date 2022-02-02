@@ -1,10 +1,19 @@
 import React from "react";
-import { HeaderContainer, LogoSection, LogoImg, LogoLabel, LocationBox } from "./styles";
+import { useNavigate } from "react-router";
+import {
+  HeaderContainer,
+  LogoSection,
+  LogoImg,
+  LogoLabel,
+  LocationBox,
+} from "./styles";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   return (
     <HeaderContainer>
-      <LogoSection>
+      <LogoSection onClick={() => navigate("/")}>
         <LogoImg />
         <LogoLabel>Warehouse Management System</LogoLabel>
       </LogoSection>

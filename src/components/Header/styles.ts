@@ -17,6 +17,7 @@ export const LogoSection = styled.div`
   flex-flow: column nowrap;
   align-content: center;
   justify-content: center;
+  cursor: pointer;
 `;
 
 export const LogoImg = styled.div`

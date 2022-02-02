@@ -6,8 +6,6 @@ import store from "redux/store";
 import "./index.css";
 import App from "./App";
 
-console.log("GLOBAL STATE", store.getState());
-
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>

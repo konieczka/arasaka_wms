@@ -4,7 +4,6 @@ export const ProductsListContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
   width: 80%;
-  cursor: pointer;
 
   h1 {
     font-size: 1.5rem;
@@ -18,6 +17,7 @@ export const ProductWrapper = styled.div`
   margin: 8px 0;
   padding: 16px;
   border: 1px solid white;
+  cursor: pointer;
 
   &:hover {
     border-color: red;
@@ -66,4 +66,20 @@ export const Loading = styled.div`
   padding: 16px;
   border: 1px solid white;
   text-align: center;
+`;
+
+export const NewItemButton = styled.div`
+  border: 1px solid cyan;
+  padding: 16px;
+  margin-top: 16px;
+  width: fit-content;
+  cursor: pointer;
+
+  &:hover {
+    color: red;
+  }
+
+  b {
+    color: cyan;
+  }
 `;

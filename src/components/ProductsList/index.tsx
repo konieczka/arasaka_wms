@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   ProductsListContainer,
   ProductWrapper,
@@ -6,6 +7,7 @@ import {
   ProductDescriptionBox,
   ProductMaintainer,
   Loading,
+  NewItemButton,
 } from "./styles";
 
 interface Props {
@@ -25,6 +27,8 @@ const ProductsList: React.FC<Props> = ({
   isProductsLoading,
   isProductsMounted,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <ProductsListContainer>
       <h1>Stock</h1>
@@ -32,7 +36,10 @@ const ProductsList: React.FC<Props> = ({
       {isProductsMounted &&
         products.length > 0 &&
         products.map((p: any) => (
-          <ProductWrapper key={p.id}>
+          <ProductWrapper
+            key={p.id}
+            onClick={() => navigate(`/product/${p.id}`)}
+          >
             <h2>{p.name}</h2>
             <ProductMaintainer>
               <small>Maintainer</small>
@@ -53,6 +60,9 @@ const ProductsList: React.FC<Props> = ({
             </ProductInfoBox>
           </ProductWrapper>
         ))}
+      <NewItemButton onClick={() => navigate(`/product/register`)}>
+        Register new item <b>+</b>
+      </NewItemButton>
     </ProductsListContainer>
   );
 };
