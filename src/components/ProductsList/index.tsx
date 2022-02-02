@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { css } from "styled-components";
+import { Primary } from "components/Button";
 import {
   ProductsListContainer,
   ProductWrapper,
@@ -7,7 +9,6 @@ import {
   ProductDescriptionBox,
   ProductMaintainer,
   Loading,
-  NewItemButton,
 } from "./styles";
 
 interface Props {
@@ -60,9 +61,14 @@ const ProductsList: React.FC<Props> = ({
             </ProductInfoBox>
           </ProductWrapper>
         ))}
-      <NewItemButton onClick={() => navigate(`/product/register`)}>
-        Register new item <b>+</b>
-      </NewItemButton>
+      <Primary
+        onClick={() => navigate(`/product/register`)}
+        customCss={css`
+          margin-top: 8px;
+        `}
+      >
+        Register new item +
+      </Primary>
     </ProductsListContainer>
   );
 };

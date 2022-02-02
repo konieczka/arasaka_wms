@@ -1,10 +1,7 @@
-import React from "react";
-import {
-  FormContainer,
-  FormInput,
-  CustomDatePicker,
-  SubmitButton,
-} from "./styles";
+import ConfirmActionModal from "components/ConfirmActionModal";
+import React, { useState } from "react";
+import { Primary, Secondary } from "components/Button";
+import { FormContainer, FormInput, CustomDatePicker } from "./styles";
 
 interface Props {
   name: {
@@ -45,8 +42,20 @@ const ProductForm: React.FC<Props> = ({
   newProduct,
   onSubmit,
 }) => {
+  const [isConfirmDeleteModalVisible, setIsConfirmDeleteModalVisible] =
+    useState(false);
+
   return (
     <FormContainer>
+      {isConfirmDeleteModalVisible && (
+        <ConfirmActionModal
+          message="Are you sure you want to delete this item?"
+          onConfirm={() => {}}
+          onToggle={() =>
+            setIsConfirmDeleteModalVisible((prevState) => !prevState)
+          }
+        />
+      )}
       <h1>{newProduct ? "Register item" : "Edit item"}</h1>
 
       <label>Name</label>
@@ -79,7 +88,14 @@ const ProductForm: React.FC<Props> = ({
 
       <label>Delivery date</label>
       <CustomDatePicker value={date.value} onChange={date.setFunc} />
-      <SubmitButton onClick={onSubmit}>Submit</SubmitButton>
+      <Primary onClick={onSubmit}>Submit</Primary>
+      <Secondary
+        onClick={() =>
+          setIsConfirmDeleteModalVisible((prevState) => !prevState)
+        }
+      >
+        Delete record
+      </Secondary>
     </FormContainer>
   );
 };

@@ -41,19 +41,3 @@ export const CustomDatePicker = styled(DatePicker)`
     }
   }
 `;
-
-export const SubmitButton = styled.div`
-  border: 1px solid cyan;
-  padding: 16px;
-  margin-top: 32px;
-  width: fit-content;
-  cursor: pointer;
-
-  &:hover {
-    color: red;
-  }
-
-  b {
-    color: cyan;
-  }
-`;

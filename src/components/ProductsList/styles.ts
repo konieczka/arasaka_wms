@@ -67,19 +67,3 @@ export const Loading = styled.div`
   border: 1px solid white;
   text-align: center;
 `;
-
-export const NewItemButton = styled.div`
-  border: 1px solid cyan;
-  padding: 16px;
-  margin-top: 16px;
-  width: fit-content;
-  cursor: pointer;
-
-  &:hover {
-    color: red;
-  }
-
-  b {
-    color: cyan;
-  }
-`;
