@@ -1,11 +1,13 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import ProductsView from "views/Products";
 import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">dupa</header>
-    </div>
+    <Routes>
+      <Route path="/" element={<ProductsView />} />
+    </Routes>
   );
 }
 

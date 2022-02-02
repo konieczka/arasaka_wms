@@ -9,7 +9,23 @@ interface ActionType {
   payload?: any;
 }
 
-const initialState = {
+export interface ProductType {
+  name: string;
+  quantity: number;
+  date: string;
+  description: string;
+  email: string;
+  id: number;
+}
+
+export interface ProductsState {
+  isProductsMounted: boolean;
+  isProductsLoading: boolean;
+  isProductsError: any;
+  products: ProductType[];
+}
+
+const initialState: ProductsState = {
   isProductsMounted: false,
   isProductsLoading: false,
   isProductsError: null,
