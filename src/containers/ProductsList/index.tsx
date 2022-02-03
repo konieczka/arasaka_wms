@@ -13,6 +13,7 @@ import {
 } from "redux/actions/products";
 import { RootState } from "redux/store";
 import apiCall from "utils/api";
+import FullScreenMessage from "components/FullScreenMessage";
 
 const filterset = ["name", "quantity", "description", "email", "date"];
 const sortOrderOptions = ["desc", "asc"];
@@ -24,6 +25,7 @@ const ProductsListContainer = () => {
     isProductsLoading,
     products,
     isThereMoreProducts,
+    isProductsError,
   } = useSelector((state: RootState) => state.products);
   const [sortFilter, setSortFilter] = useState("name");
   const [sortDirection, setSortDirection] = useState("DESC");
@@ -87,6 +89,12 @@ const ProductsListContainer = () => {
       dispatch({ type: RESET_PRODUCTS });
     };
   }, [sortFilter, sortDirection, searchFilter, limit]);
+
+  if (isProductsError) {
+    return (
+      <FullScreenMessage message="An unknown error occured. Try refreshing the page." />
+    );
+  }
 
   return (
     <ProductsList
