@@ -14,6 +14,7 @@ import {
   ProductMaintainer,
   ProductsListWrapper,
   ProductButtonsGroup,
+  SearchByName,
 } from "./styles";
 import { deleteProduct } from "utils/api";
 import FilterSelect from "components/FilterSelect";
@@ -28,6 +29,8 @@ interface Props {
   selectedOrder: string;
   orderOptions: string[];
   onOrderSelect: (newValue: string) => void;
+  searchFilter: string;
+  onSearchChange: (newValue: string) => void;
 }
 
 const displayFormattedDate = (dateString: string) => {
@@ -47,7 +50,7 @@ const ProductListItem: React.FC<{
     setIsConfirmDeleteModalVisible((prevState) => !prevState);
 
   return (
-    <ProductWrapper key={p.id}>
+    <ProductWrapper>
       {isConfirmDeleteModalVisible && (
         <ConfirmActionModal
           message="Are you sure you want to delete this item?"
@@ -101,6 +104,8 @@ const ProductsList: React.FC<Props> = ({
   onOrderSelect,
   orderOptions,
   selectedOrder,
+  searchFilter,
+  onSearchChange,
 }) => {
   const navigate = useNavigate();
 
@@ -109,6 +114,12 @@ const ProductsList: React.FC<Props> = ({
       <ProductsListHeader>
         <h1>Stock</h1>
         <span>
+          <SearchByName
+            placeholder="Search product"
+            value={searchFilter}
+            min={3}
+            onChange={({ target }) => onSearchChange(target.value)}
+          />
           <FilterSelect
             options={filtersOptions}
             selectedFilter={selectedFilter}
@@ -129,7 +140,7 @@ const ProductsList: React.FC<Props> = ({
         {isProductsMounted &&
           products.length > 0 &&
           products.map((p: any) => (
-            <ProductListItem p={p} navigate={navigate} />
+            <ProductListItem key={p.id} p={p} navigate={navigate} />
           ))}
       </ProductsListWrapper>
       <Primary

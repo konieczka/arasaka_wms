@@ -34,6 +34,7 @@ const FilterSelect: React.FC<Props> = ({
       <FilterDropdown isVisible={isDropdownOpen}>
         {options.map((option) => (
           <FilterOption
+            key={option}
             onClick={() => {
               onSelect(option);
               toggleDropdown();

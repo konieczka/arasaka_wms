@@ -19,12 +19,20 @@ const ProductsListContainer = () => {
   );
   const [sortFilter, setSortFilter] = useState("name");
   const [sortDirection, setSortDirection] = useState("DESC");
+  const [searchFilter, setSearchFilter] = useState("");
 
   const fetchProducts = () => {
     dispatch({ type: FETCH_PRODUCTS });
-    apiCall(`/Products?filter[order]=${sortFilter}%20${sortDirection}`, {
-      method: "GET",
-    })
+    apiCall(
+      `/Products?filter[order]=${sortFilter}%20${sortDirection}${
+        searchFilter
+          ? `&filter[where][name]=${searchFilter.replace(/ /g, "+")}`
+          : ""
+      }`,
+      {
+        method: "GET",
+      }
+    )
       .then((response) => response.json())
       .then((data) => dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data }))
       .catch((e) => dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: e }));
@@ -32,7 +40,7 @@ const ProductsListContainer = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, [sortFilter, sortDirection]);
+  }, [sortFilter, sortDirection, searchFilter]);
 
   return (
     <ProductsList
@@ -45,6 +53,8 @@ const ProductsListContainer = () => {
       orderOptions={sortOrderOptions}
       selectedOrder={sortDirection}
       onOrderSelect={(newValue) => setSortDirection(newValue)}
+      searchFilter={searchFilter}
+      onSearchChange={(newValue) => setSearchFilter(newValue)}
     />
   );
 };

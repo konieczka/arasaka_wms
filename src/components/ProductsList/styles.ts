@@ -5,6 +5,7 @@ export const ProductsListContainer = styled.div`
   flex-flow: column nowrap;
   width: 80%;
   overflow: hidden;
+  padding-bottom: 16px;
 `;
 
 export const ProductsListHeader = styled.div`
@@ -74,4 +75,12 @@ export const ProductButtonsGroup = styled.div`
   h2 {
     margin-right: 8px;
   }
+`;
+
+export const SearchByName = styled.input`
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+  padding: 8px;
+  margin-right: 8px;
 `;
