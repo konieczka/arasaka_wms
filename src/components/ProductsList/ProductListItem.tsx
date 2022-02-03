@@ -55,10 +55,12 @@ const ProductListItem: React.FC<{
         <small>Maintainer</small>
         <strong>{p.email}</strong>
       </ProductMaintainer>
-      <ProductDescriptionBox>
-        <small>Info</small>
-        <p>{p.description}</p>
-      </ProductDescriptionBox>
+      {p.description && (
+        <ProductDescriptionBox>
+          <small>Info</small>
+          <p>{p.description}</p>
+        </ProductDescriptionBox>
+      )}
       <ProductInfoBox>
         <div>
           <b>Delivered:</b> {displayFormattedDate(p.date)}

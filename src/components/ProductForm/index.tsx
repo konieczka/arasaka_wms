@@ -37,6 +37,10 @@ interface Props {
   newProduct?: boolean;
   onSubmit: () => void;
   onDelete?: () => void;
+  fieldErrors: {
+    name: string;
+    email: string;
+  };
 }
 
 const ProductForm: React.FC<Props> = ({
@@ -48,6 +52,7 @@ const ProductForm: React.FC<Props> = ({
   newProduct,
   onSubmit,
   onDelete,
+  fieldErrors,
 }) => {
   const [isConfirmDeleteModalVisible, setIsConfirmDeleteModalVisible] =
     useState(false);
@@ -66,10 +71,14 @@ const ProductForm: React.FC<Props> = ({
       )}
       <h1>{newProduct ? "Register item" : "Edit item"}</h1>
 
-      <label>Name</label>
+      <label style={{ color: fieldErrors.name ? "red" : "white" }}>
+        {fieldErrors.name || "Name"}
+      </label>
       <FormInput
         type="text"
         value={name.value}
+        disabled={!newProduct}
+        isError={Boolean(fieldErrors.name)}
         onChange={({ target }) => name.setFunc(target.value)}
       />
 
@@ -87,10 +96,13 @@ const ProductForm: React.FC<Props> = ({
         onChange={({ target }) => description.setFunc(target.value)}
       />
 
-      <label>Maintainer email</label>
+      <label style={{ color: fieldErrors.email ? "red" : "white" }}>
+        {fieldErrors.email || "Maintainer email"}
+      </label>
       <FormInput
         type="text"
         value={email.value}
+        isError={Boolean(fieldErrors.email)}
         onChange={({ target }) => email.setFunc(target.value)}
       />
 

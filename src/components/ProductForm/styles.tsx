@@ -14,12 +14,14 @@ export const FormContainer = styled.div`
   }
 `;
 
-export const FormInput = styled.input`
+export const FormInput = styled.input<{ isError?: boolean }>`
   border: 1px solid white;
   background-color: black;
   color: white;
   padding: 16px;
   margin-bottom: 16px;
+
+  ${({ isError }) => isError && "border-color: red;"}
 `;
 
 export const CustomDatePicker = styled(DatePicker)`

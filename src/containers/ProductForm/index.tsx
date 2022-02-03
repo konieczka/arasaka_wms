@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { ProductType } from "redux/reducers/productsReducer";
 import { sendProduct, deleteProduct } from "utils/api";
 import ProductForm from "components/ProductForm";
+import { validateEmail, validateName } from "utils/validate";
 
 export interface Props {
   product?: ProductType;
@@ -18,9 +19,31 @@ const ProductFormContainer: React.FC<Props> = ({ product, newProduct }) => {
     date: new Date(),
   });
 
+  const [fieldErrors, setFieldErrors] = useState({
+    name: "",
+    email: "",
+  });
+
   const navigate = useNavigate();
 
-  const onSubmit = () => sendProduct(productFields, navigate);
+  const validateInputFields = async () => {
+    const validationResult = {
+      email: validateEmail(productFields.email),
+      name: newProduct ? await validateName(productFields.name) : "",
+    };
+
+    setFieldErrors(validationResult);
+
+    return validationResult;
+  };
+
+  const onSubmit = async () => {
+    validateInputFields().then((response) => {
+      if (!response.name && !response.email) {
+        sendProduct(productFields, navigate);
+      }
+    });
+  };
 
   const onDelete = () => deleteProduct(product!.id, navigate);
 
@@ -33,10 +56,14 @@ const ProductFormContainer: React.FC<Props> = ({ product, newProduct }) => {
   return (
     <ProductForm
       newProduct={newProduct}
+      fieldErrors={fieldErrors}
       name={{
         value: productFields.name,
         setFunc: (newVal) =>
-          setProductFields((prevState) => ({ ...prevState, name: newVal })),
+          setProductFields((prevState) => ({
+            ...prevState,
+            name: newVal.toLowerCase(),
+          })),
       }}
       quantity={{
         value: productFields.quantity,
@@ -54,7 +81,10 @@ const ProductFormContainer: React.FC<Props> = ({ product, newProduct }) => {
       email={{
         value: productFields.email,
         setFunc: (newVal) =>
-          setProductFields((prevState) => ({ ...prevState, email: newVal })),
+          setProductFields((prevState) => ({
+            ...prevState,
+            email: newVal.toLowerCase(),
+          })),
       }}
       date={{
         value: productFields.date,
