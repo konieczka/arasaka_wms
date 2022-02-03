@@ -23,16 +23,6 @@ export const ProductWrapper = styled.div`
   margin: 8px 0;
   padding: 16px;
   border: 1px solid white;
-  cursor: pointer;
-
-  &:hover {
-    border-color: red;
-
-    * {
-      color: red;
-      border-color: red;
-    }
-  }
 `;
 
 export const ProductMaintainer = styled.div`
@@ -66,4 +56,9 @@ export const ProductDescriptionBox = styled.div`
     top: -20px;
     left: 0;
   }
+`;
+
+export const ProductButtonsGroup = styled.div`
+  display: flex;
+  margin-top: 8px;
 `;

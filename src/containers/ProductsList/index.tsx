@@ -7,7 +7,7 @@ import {
   FETCH_PRODUCTS_SUCCESS,
 } from "redux/actions/products";
 import { RootState } from "redux/store";
-import apiCall from "utils/apiCall";
+import apiCall from "utils/api";
 
 const ProductsListContainer = () => {
   const dispatch = useDispatch();

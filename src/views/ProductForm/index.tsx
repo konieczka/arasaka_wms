@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "components/Header";
 import { Container } from "./styles";
-import apiCall from "utils/apiCall";
+import apiCall from "utils/api";
 import ProductFormContainer from "containers/ProductForm";
 import Loader from "components/Loader";
 
