@@ -8,6 +8,7 @@ import { ProductType } from "redux/reducers/productsReducer";
 import {
   ProductsListContainer,
   ProductWrapper,
+  ProductsListHeader,
   ProductInfoBox,
   ProductDescriptionBox,
   ProductMaintainer,
@@ -15,11 +16,15 @@ import {
   ProductButtonsGroup,
 } from "./styles";
 import { deleteProduct } from "utils/api";
+import FilterSelect from "components/FilterSelect";
 
 interface Props {
   products: any;
   isProductsLoading: boolean;
   isProductsMounted: boolean;
+  selectedFilter: string;
+  filtersOptions: string[];
+  onFilterSelect: (newValue: string) => void;
 }
 
 const displayFormattedDate = (dateString: string) => {
@@ -47,7 +52,21 @@ const ProductListItem: React.FC<{
           onToggle={toggleModal}
         />
       )}
-      <h2>{p.name}</h2>
+      <ProductButtonsGroup>
+        <h2>{p.name}</h2>
+        <Primary
+          onClick={() => navigate(`/product/${p.id}`)}
+          customCss="padding: 4px; height: fit-content; margin-right: 16px;"
+        >
+          Edit item
+        </Primary>
+        <Secondary
+          onClick={toggleModal}
+          customCss="padding: 4px; height: fit-content;"
+        >
+          Remove item
+        </Secondary>
+      </ProductButtonsGroup>
       <ProductMaintainer>
         <small>Maintainer</small>
         <strong>{p.email}</strong>
@@ -65,20 +84,6 @@ const ProductListItem: React.FC<{
           <b>In stock:</b> {p.quantity}
         </div>
       </ProductInfoBox>
-      <ProductButtonsGroup>
-        <Primary
-          onClick={() => navigate(`/product/${p.id}`)}
-          customCss="padding: 4px; height: fit-content; margin-right: 16px;"
-        >
-          Edit item
-        </Primary>
-        <Secondary
-          onClick={toggleModal}
-          customCss="padding: 4px; height: fit-content;"
-        >
-          Remove item
-        </Secondary>
-      </ProductButtonsGroup>
     </ProductWrapper>
   );
 };
@@ -87,12 +92,22 @@ const ProductsList: React.FC<Props> = ({
   products,
   isProductsLoading,
   isProductsMounted,
+  selectedFilter,
+  filtersOptions,
+  onFilterSelect,
 }) => {
   const navigate = useNavigate();
 
   return (
     <ProductsListContainer>
-      <h1>Stock</h1>
+      <ProductsListHeader>
+        <h1>Stock</h1>
+        <FilterSelect
+          options={filtersOptions}
+          selectedFilter={selectedFilter}
+          onSelect={onFilterSelect}
+        />
+      </ProductsListHeader>
       {isProductsLoading && <Loader />}
       <ProductsListWrapper>
         {isProductsMounted &&

@@ -5,18 +5,23 @@ export const ProductsListContainer = styled.div`
   flex-flow: column nowrap;
   width: 80%;
   overflow: hidden;
+`;
+
+export const ProductsListHeader = styled.div`
+  margin: 16px 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid white;
+  display: flex;
+  justify-content: space-between;
 
   h1 {
     font-size: 1.5rem;
-    margin: 16px 0;
-    padding-bottom: 16px;
-    border-bottom: 1px solid white;
   }
 `;
 
 export const ProductsListWrapper = styled.div`
   overflow-y: scroll;
-  height: 78%;
+  height: 85%;
 `;
 
 export const ProductWrapper = styled.div`
@@ -60,5 +65,9 @@ export const ProductDescriptionBox = styled.div`
 
 export const ProductButtonsGroup = styled.div`
   display: flex;
-  margin-top: 8px;
+  align-items: center;
+
+  h2 {
+    margin-right: 8px;
+  }
 `;

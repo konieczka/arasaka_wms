@@ -9,17 +9,21 @@ import {
 import { RootState } from "redux/store";
 import apiCall from "utils/api";
 
+const filterset = ["name", "quantity", "description", "email", "date"];
+
 const ProductsListContainer = () => {
   const dispatch = useDispatch();
   const { isProductsMounted, isProductsLoading, products } = useSelector(
     (state: RootState) => state.products
   );
-  const [sortFilter, setSortFilter] = useState(null);
-  const [sortDirection, setSortDirection] = useState("ASC");
+  const [sortFilter, setSortFilter] = useState("name");
+  const [sortDirection, setSortDirection] = useState("DESC");
 
   const fetchProducts = () => {
     dispatch({ type: FETCH_PRODUCTS });
-    apiCall("/Products", { method: "GET" })
+    apiCall(`/Products?filter[order]=${sortFilter}%20${sortDirection}`, {
+      method: "GET",
+    })
       .then((response) => response.json())
       .then((data) => dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data }))
       .catch((e) => dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: e }));
@@ -27,13 +31,16 @@ const ProductsListContainer = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [sortFilter, sortDirection]);
 
   return (
     <ProductsList
       products={products}
       isProductsLoading={isProductsLoading}
       isProductsMounted={isProductsMounted}
+      filtersOptions={filterset}
+      selectedFilter={sortFilter}
+      onFilterSelect={(newValue) => setSortFilter(newValue)}
     />
   );
 };
