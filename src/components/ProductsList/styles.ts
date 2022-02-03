@@ -84,3 +84,11 @@ export const SearchByName = styled.input`
   padding: 8px;
   margin-right: 8px;
 `;
+
+export const ChangeBatchSize = styled.input`
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+  padding: 16px;
+  margin-top: 8px;
+`;

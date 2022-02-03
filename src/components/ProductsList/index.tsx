@@ -15,6 +15,7 @@ import {
   ProductsListWrapper,
   ProductButtonsGroup,
   SearchByName,
+  ChangeBatchSize,
 } from "./styles";
 import { deleteProduct } from "utils/api";
 import FilterSelect from "components/FilterSelect";
@@ -31,6 +32,10 @@ interface Props {
   onOrderSelect: (newValue: string) => void;
   searchFilter: string;
   onSearchChange: (newValue: string) => void;
+  itemsPerBatch: number;
+  changeItemsPerBatch: (val: number) => void;
+  loadMoreItems: () => void;
+  isThereMoreItems: boolean;
 }
 
 const displayFormattedDate = (dateString: string) => {
@@ -106,6 +111,10 @@ const ProductsList: React.FC<Props> = ({
   selectedOrder,
   searchFilter,
   onSearchChange,
+  itemsPerBatch,
+  loadMoreItems,
+  changeItemsPerBatch,
+  isThereMoreItems,
 }) => {
   const navigate = useNavigate();
 
@@ -143,14 +152,41 @@ const ProductsList: React.FC<Props> = ({
             <ProductListItem key={p.id} p={p} navigate={navigate} />
           ))}
       </ProductsListWrapper>
-      <Primary
-        onClick={() => navigate(`/product/register`)}
-        customCss={css`
-          margin-top: 8px;
-        `}
-      >
-        Register new item +
-      </Primary>
+      <ProductButtonsGroup>
+        <Primary
+          onClick={() => navigate(`/product/register`)}
+          customCss={css`
+            margin-top: 8px;
+            margin-right: 8px;
+          `}
+        >
+          Register new item +
+        </Primary>
+        {isThereMoreItems && (
+          <>
+            <Primary
+              onClick={loadMoreItems}
+              customCss={css`
+                margin-top: 8px;
+                margin-right: 8px;
+              `}
+            >
+              Load {itemsPerBatch} more items
+            </Primary>
+            <ChangeBatchSize
+              type="number"
+              value={itemsPerBatch}
+              onChange={({ target }) =>
+                changeItemsPerBatch(parseInt(target.value))
+              }
+              onKeyDown={(e) => e.preventDefault()}
+              min={1}
+              max={20}
+              step={1}
+            />
+          </>
+        )}
+      </ProductButtonsGroup>
     </ProductsListContainer>
   );
 };

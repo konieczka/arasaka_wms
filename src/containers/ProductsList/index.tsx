@@ -5,6 +5,11 @@ import {
   FETCH_PRODUCTS,
   FETCH_PRODUCTS_FAILURE,
   FETCH_PRODUCTS_SUCCESS,
+  LOAD_MORE_PRODUCTS,
+  LOAD_MORE_PRODUCTS_FAILURE,
+  LOAD_MORE_PRODUCTS_SUCCESS,
+  ALL_PRODUCTS_LOADED,
+  RESET_PRODUCTS,
 } from "redux/actions/products";
 import { RootState } from "redux/store";
 import apiCall from "utils/api";
@@ -14,17 +19,25 @@ const sortOrderOptions = ["desc", "asc"];
 
 const ProductsListContainer = () => {
   const dispatch = useDispatch();
-  const { isProductsMounted, isProductsLoading, products } = useSelector(
-    (state: RootState) => state.products
-  );
+  const {
+    isProductsMounted,
+    isProductsLoading,
+    products,
+    isThereMoreProducts,
+  } = useSelector((state: RootState) => state.products);
   const [sortFilter, setSortFilter] = useState("name");
   const [sortDirection, setSortDirection] = useState("DESC");
   const [searchFilter, setSearchFilter] = useState("");
 
-  const fetchProducts = () => {
-    dispatch({ type: FETCH_PRODUCTS });
+  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(2);
+
+  const fetchNextBatch = () => {
+    dispatch({ type: LOAD_MORE_PRODUCTS });
     apiCall(
-      `/Products?filter[order]=${sortFilter}%20${sortDirection}${
+      `/Products?filter[order]=${sortFilter}%20${sortDirection}&filter[skip]=${
+        offset + limit
+      }&filter[limit]=${limit}${
         searchFilter
           ? `&filter[where][name]=${searchFilter.replace(/ /g, "+")}`
           : ""
@@ -34,13 +47,46 @@ const ProductsListContainer = () => {
       }
     )
       .then((response) => response.json())
-      .then((data) => dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data }))
-      .catch((e) => dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: e }));
+      .then((data) => {
+        if (data.length < limit || data.length === 0) {
+          dispatch({ type: ALL_PRODUCTS_LOADED });
+        }
+        dispatch({ type: LOAD_MORE_PRODUCTS_SUCCESS, payload: data });
+      })
+      .catch((e) => dispatch({ type: LOAD_MORE_PRODUCTS_FAILURE, payload: e }))
+      .finally(() => setOffset((currentOffset) => currentOffset + limit));
   };
 
   useEffect(() => {
-    fetchProducts();
-  }, [sortFilter, sortDirection, searchFilter]);
+    setOffset(0);
+    const fetchInitialBatch = () => {
+      dispatch({ type: FETCH_PRODUCTS });
+      apiCall(
+        `/Products?filter[order]=${sortFilter}%20${sortDirection}&filter[skip]=0&filter[limit]=${limit}${
+          searchFilter
+            ? `&filter[where][name]=${searchFilter.replace(/ /g, "+")}`
+            : ""
+        }`,
+        {
+          method: "GET",
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.length < limit || data.length === 0) {
+            dispatch({ type: ALL_PRODUCTS_LOADED });
+          }
+          dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data });
+        })
+        .catch((e) => dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: e }));
+    };
+
+    fetchInitialBatch();
+
+    return () => {
+      dispatch({ type: RESET_PRODUCTS });
+    };
+  }, [sortFilter, sortDirection, searchFilter, limit]);
 
   return (
     <ProductsList
@@ -55,6 +101,10 @@ const ProductsListContainer = () => {
       onOrderSelect={(newValue) => setSortDirection(newValue)}
       searchFilter={searchFilter}
       onSearchChange={(newValue) => setSearchFilter(newValue)}
+      itemsPerBatch={limit}
+      changeItemsPerBatch={(newValue) => setLimit(newValue)}
+      loadMoreItems={fetchNextBatch}
+      isThereMoreItems={isThereMoreProducts}
     />
   );
 };
