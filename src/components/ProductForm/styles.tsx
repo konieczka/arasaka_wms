@@ -41,3 +41,9 @@ export const CustomDatePicker = styled(DatePicker)`
     }
   }
 `;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  margin-top: 32px;
+`;

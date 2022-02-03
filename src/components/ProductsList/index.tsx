@@ -9,6 +9,7 @@ import {
   ProductInfoBox,
   ProductDescriptionBox,
   ProductMaintainer,
+  ProductsListWrapper,
 } from "./styles";
 
 interface Props {
@@ -34,33 +35,35 @@ const ProductsList: React.FC<Props> = ({
     <ProductsListContainer>
       <h1>Stock</h1>
       {isProductsLoading && <Loader />}
-      {isProductsMounted &&
-        products.length > 0 &&
-        products.map((p: any) => (
-          <ProductWrapper
-            key={p.id}
-            onClick={() => navigate(`/product/${p.id}`)}
-          >
-            <h2>{p.name}</h2>
-            <ProductMaintainer>
-              <small>Maintainer</small>
-              <strong>{p.email}</strong>
-            </ProductMaintainer>
-            <ProductDescriptionBox>
-              <small>Info</small>
-              <p>{p.description}</p>
-            </ProductDescriptionBox>
-            <ProductInfoBox>
-              <div>
-                <b>Delivered:</b> {displayFormattedDate(p.date)}
-              </div>
-              &nbsp; | &nbsp;
-              <div>
-                <b>In stock:</b> {p.quantity}
-              </div>
-            </ProductInfoBox>
-          </ProductWrapper>
-        ))}
+      <ProductsListWrapper>
+        {isProductsMounted &&
+          products.length > 0 &&
+          products.map((p: any) => (
+            <ProductWrapper
+              key={p.id}
+              onClick={() => navigate(`/product/${p.id}`)}
+            >
+              <h2>{p.name}</h2>
+              <ProductMaintainer>
+                <small>Maintainer</small>
+                <strong>{p.email}</strong>
+              </ProductMaintainer>
+              <ProductDescriptionBox>
+                <small>Info</small>
+                <p>{p.description}</p>
+              </ProductDescriptionBox>
+              <ProductInfoBox>
+                <div>
+                  <b>Delivered:</b> {displayFormattedDate(p.date)}
+                </div>
+                &nbsp; | &nbsp;
+                <div>
+                  <b>In stock:</b> {p.quantity}
+                </div>
+              </ProductInfoBox>
+            </ProductWrapper>
+          ))}
+      </ProductsListWrapper>
       <Primary
         onClick={() => navigate(`/product/register`)}
         customCss={css`

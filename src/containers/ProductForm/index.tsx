@@ -1,7 +1,8 @@
-import ProductForm from "components/ProductForm";
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { ProductType } from "redux/reducers/productsReducer";
 import apiCall from "utils/apiCall";
+import ProductForm from "components/ProductForm";
 
 export interface Props {
   product?: ProductType;
@@ -17,12 +18,34 @@ const ProductFormContainer: React.FC<Props> = ({ product, newProduct }) => {
     date: new Date(),
   });
 
+  const navigate = useNavigate();
+
   const sendProduct = () => {
     apiCall("/Products", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(productFields),
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          navigate("/success");
+        } else {
+          navigate("/failure");
+        }
+      })
+      .catch((e) => navigate("/failure"));
+  };
+
+  const deleteProduct = () => {
+    apiCall(`/Products/${product!.id}`, { method: "DELETE" })
+      .then((response) => {
+        if (response.ok) {
+          navigate("/success");
+        } else {
+          navigate("/failure");
+        }
+      })
+      .catch((e) => navigate("/failure"));
   };
 
   useEffect(() => {
@@ -63,6 +86,7 @@ const ProductFormContainer: React.FC<Props> = ({ product, newProduct }) => {
           setProductFields((prevState) => ({ ...prevState, date: newVal })),
       }}
       onSubmit={sendProduct}
+      onDelete={deleteProduct}
     />
   );
 };

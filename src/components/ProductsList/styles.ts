@@ -4,6 +4,7 @@ export const ProductsListContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
   width: 80%;
+  overflow: hidden;
 
   h1 {
     font-size: 1.5rem;
@@ -11,6 +12,11 @@ export const ProductsListContainer = styled.div`
     padding-bottom: 16px;
     border-bottom: 1px solid white;
   }
+`;
+
+export const ProductsListWrapper = styled.div`
+  overflow-y: scroll;
+  height: 78%;
 `;
 
 export const ProductWrapper = styled.div`
