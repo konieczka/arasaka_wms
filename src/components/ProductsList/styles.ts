@@ -6,6 +6,10 @@ export const ProductsListContainer = styled.div`
   width: 80%;
   overflow: hidden;
   padding-bottom: 16px;
+
+  @media (max-width: 800px) {
+    width: 95%;
+  }
 `;
 
 export const ProductsListHeader = styled.div`
@@ -22,6 +26,32 @@ export const ProductsListHeader = styled.div`
   span {
     display: flex;
   }
+
+  @media (max-width: 800px) {
+    flex-flow: column;
+    align-items: center;
+    padding-bottom: 8px;
+
+    h1 {
+      margin-bottom: 8px;
+    }
+
+    span {
+      flex-flow: column-reverse;
+      align-items: center;
+    }
+
+    div, input {
+      margin: 0;
+      margin-bottom: 8px;
+      width: 300px;
+    }
+
+    input {
+      margin-left: 18px;
+    }
+    }
+  }
 `;
 
 export const ProductsListWrapper = styled.div`
@@ -33,6 +63,10 @@ export const ProductWrapper = styled.div`
   margin: 8px 0;
   padding: 16px;
   border: 1px solid white;
+
+  @media (max-width: 800px) {
+    font-size: 0.8rem;
+  }
 `;
 
 export const ProductMaintainer = styled.div`
@@ -91,4 +125,8 @@ export const ChangeBatchSize = styled.input`
   color: white;
   padding: 16px;
   margin-top: 8px;
+
+  @media (max-width: 800px) {
+    padding: 8px;
+  }
 `;

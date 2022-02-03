@@ -9,6 +9,10 @@ export const HeaderContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
+
+  @media (max-width: 800px) {
+    padding: 8px;
+  }
 `;
 
 export const LogoSection = styled.div`
@@ -26,11 +30,20 @@ export const LogoImg = styled.div`
   background-image: url(${arasakaLogo});
   background-size: contain;
   background-repeat: no-repeat;
+
+  @media (max-width: 800px) {
+    width: 100px;
+    height: 25px;
+  }
 `;
 
 export const LogoLabel = styled.div`
   font-size: 0.8rem;
   color: cyan;
+
+  @media (max-width: 800px) {
+    font-size: 0.4rem;
+  }
 `;
 
 export const LocationBox = styled.div`
@@ -49,5 +62,9 @@ export const LocationBox = styled.div`
     position: absolute;
     top: -18px;
     left: 0;
+  }
+
+  @media (max-width: 800px) {
+    transform: scale(0.8);
   }
 `;

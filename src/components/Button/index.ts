@@ -23,6 +23,11 @@ export const Primary = styled.button<ButtonProps>`
     css`
       ${customCss}
     `}
+
+  @media (max-width: 800px) {
+    padding: 8px !important;
+    font-size: 0.6rem;
+  }
 `;
 
 export const Secondary = styled.button<ButtonProps>`
@@ -44,4 +49,9 @@ export const Secondary = styled.button<ButtonProps>`
     css`
       ${customCss}
     `}
+
+  @media (max-width: 800px) {
+    padding: 8px !important;
+    font-size: 0.6rem;
+  }
 `;

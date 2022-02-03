@@ -32,7 +32,7 @@ const ProductsListContainer = () => {
   const [searchFilter, setSearchFilter] = useState("");
 
   const [offset, setOffset] = useState(0);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(10);
 
   const fetchNextBatch = () => {
     dispatch({ type: LOAD_MORE_PRODUCTS });
