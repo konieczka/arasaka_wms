@@ -1,4 +1,4 @@
-const apiBaseUrl = "http://onglnakbsy.cdprojektred.com:3000/api";
+const apiBaseUrl = "https://onglnakbsy.cdprojektred.com:3000/api";
 
 const apiCall = (path: string, options: any) =>
   fetch(`${apiBaseUrl}${path}`, options);
