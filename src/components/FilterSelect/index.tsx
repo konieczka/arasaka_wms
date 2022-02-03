@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FlattenSimpleInterpolation } from "styled-components";
 import {
   FilterContainer,
   FilterStatus,
@@ -7,24 +8,28 @@ import {
 } from "./styles";
 
 interface Props {
+  label: string;
   options: string[];
   selectedFilter: string;
   onSelect: (option: string) => void;
+  customCss?: string | FlattenSimpleInterpolation;
 }
 
 const FilterSelect: React.FC<Props> = ({
   options,
   selectedFilter,
   onSelect,
+  label,
+  customCss,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => setIsDropdownOpen((prevState) => !prevState);
 
   return (
-    <FilterContainer>
+    <FilterContainer customCss={customCss}>
       <FilterStatus onClick={toggleDropdown}>
-        Filter: {selectedFilter}
+        {label}: {selectedFilter}
       </FilterStatus>
       <FilterDropdown isVisible={isDropdownOpen}>
         {options.map((option) => (

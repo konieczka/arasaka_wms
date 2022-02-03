@@ -25,6 +25,9 @@ interface Props {
   selectedFilter: string;
   filtersOptions: string[];
   onFilterSelect: (newValue: string) => void;
+  selectedOrder: string;
+  orderOptions: string[];
+  onOrderSelect: (newValue: string) => void;
 }
 
 const displayFormattedDate = (dateString: string) => {
@@ -95,6 +98,9 @@ const ProductsList: React.FC<Props> = ({
   selectedFilter,
   filtersOptions,
   onFilterSelect,
+  onOrderSelect,
+  orderOptions,
+  selectedOrder,
 }) => {
   const navigate = useNavigate();
 
@@ -102,11 +108,21 @@ const ProductsList: React.FC<Props> = ({
     <ProductsListContainer>
       <ProductsListHeader>
         <h1>Stock</h1>
-        <FilterSelect
-          options={filtersOptions}
-          selectedFilter={selectedFilter}
-          onSelect={onFilterSelect}
-        />
+        <span>
+          <FilterSelect
+            options={filtersOptions}
+            selectedFilter={selectedFilter}
+            onSelect={onFilterSelect}
+            label="Sort by"
+            customCss="margin-right: 8px;"
+          />
+          <FilterSelect
+            options={orderOptions}
+            selectedFilter={selectedOrder}
+            onSelect={onOrderSelect}
+            label="Order"
+          />
+        </span>
       </ProductsListHeader>
       {isProductsLoading && <Loader />}
       <ProductsListWrapper>

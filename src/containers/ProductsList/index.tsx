@@ -10,6 +10,7 @@ import { RootState } from "redux/store";
 import apiCall from "utils/api";
 
 const filterset = ["name", "quantity", "description", "email", "date"];
+const sortOrderOptions = ["desc", "asc"];
 
 const ProductsListContainer = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,9 @@ const ProductsListContainer = () => {
       filtersOptions={filterset}
       selectedFilter={sortFilter}
       onFilterSelect={(newValue) => setSortFilter(newValue)}
+      orderOptions={sortOrderOptions}
+      selectedOrder={sortDirection}
+      onOrderSelect={(newValue) => setSortDirection(newValue)}
     />
   );
 };

@@ -17,6 +17,10 @@ export const ProductsListHeader = styled.div`
   h1 {
     font-size: 1.5rem;
   }
+
+  span {
+    display: flex;
+  }
 `;
 
 export const ProductsListWrapper = styled.div`
