@@ -107,7 +107,11 @@ const ProductForm: React.FC<Props> = ({
       />
 
       <label>Delivery date</label>
-      <CustomDatePicker value={date.value} onChange={date.setFunc} />
+      <CustomDatePicker
+        value={date.value}
+        onChange={date.setFunc}
+        clearIcon={null}
+      />
       <ButtonGroup>
         <Primary onClick={onSubmit} customCss="margin-right: 16px;">
           Submit
