@@ -31,6 +31,10 @@ export const LogoImg = styled.div`
   background-size: contain;
   background-repeat: no-repeat;
 
+  &:hover {
+    filter: brightness(0.5) sepia(1) saturate(10000%);
+  }
+
   @media (max-width: 800px) {
     width: 100px;
     height: 25px;
