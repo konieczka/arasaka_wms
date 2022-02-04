@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
-import Header from "components/Header";
 import FullScreenMessage from "components/FullScreenMessage";
-import { Container } from "./styles";
+import GenericLayout from "components/GenericLayout";
 
 const ActionFailure = () => {
   const navigate = useNavigate();
@@ -14,13 +13,12 @@ const ActionFailure = () => {
   }, [navigate]);
 
   return (
-    <Container>
-      <Header />
+    <GenericLayout>
       <FullScreenMessage
         message="An unexpected error occurred. Please try again. Redirecting to item list shortly..."
         isError
       />
-    </Container>
+    </GenericLayout>
   );
 };
 

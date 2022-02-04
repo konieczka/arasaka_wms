@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
-import Header from "components/Header";
 import FullScreenMessage from "components/FullScreenMessage";
-import { Container } from "./styles";
+import GenericLayout from "components/GenericLayout";
 
 const ActionSuccess = () => {
   const navigate = useNavigate();
@@ -14,10 +13,9 @@ const ActionSuccess = () => {
   }, [navigate]);
 
   return (
-    <Container>
-      <Header />
+    <GenericLayout>
       <FullScreenMessage message="Action successful! Redirecting to item list shortly..." />
-    </Container>
+    </GenericLayout>
   );
 };
 

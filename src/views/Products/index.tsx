@@ -1,13 +1,11 @@
 import React from "react";
 import ProductsListContainer from "containers/ProductsList";
-import Header from "components/Header";
-import { Container } from "./styles";
+import GenericLayout from "components/GenericLayout";
 
 const ProductsView = () => (
-  <Container>
-    <Header />
+  <GenericLayout>
     <ProductsListContainer />
-  </Container>
+  </GenericLayout>
 );
 
 export default ProductsView;

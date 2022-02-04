@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "components/Header";
-import { Container } from "./styles";
 import apiCall from "utils/api";
 import ProductFormContainer from "containers/ProductForm";
 import Loader from "components/Loader";
+import GenericLayout from "components/GenericLayout";
 
 interface Props {
   newProduct?: boolean;
@@ -28,15 +27,16 @@ const ProductFormView: React.FC<Props> = ({ newProduct = false }) => {
   }, [id, newProduct]);
 
   return (
-    <Container>
-      <Header />
-      {isProductLoading && <Loader />}
-      {newProduct ? (
-        <ProductFormContainer newProduct={newProduct} />
-      ) : (
-        <ProductFormContainer product={product!} />
-      )}
-    </Container>
+    <GenericLayout>
+      <>
+        {isProductLoading && <Loader />}
+        {newProduct ? (
+          <ProductFormContainer newProduct={newProduct} />
+        ) : (
+          <ProductFormContainer product={product!} />
+        )}
+      </>
+    </GenericLayout>
   );
 };
 export default ProductFormView;
